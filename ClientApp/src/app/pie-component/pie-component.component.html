@@ -1,0 +1,37 @@
+<h1>Pies Data</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!pies"><em>Loading...</em></p>
+
+<div class="panel panel-primary">
+  <div class="panel-heading"
+       style="font-size:large">Pies Data
+  </div>
+
+  <div class="panel-body">
+    <table class='table' *ngIf="pies">
+
+          <thead>
+          <tr>             
+            
+              <td>Name</td>
+              <td>Price</td>
+              <td>ShortDescription</td>
+              <td>ImageThumbnailUrl</td>
+
+          </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pie of pies">
+            
+              <td> {{ pie.Name}}</td>
+              <td>{{ pie.Price | currency}}</td>
+              <td>{{ pie.ShortDescription }}</td>
+              <td>{{ pie.price | currency }}</td>
+          </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
