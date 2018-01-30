@@ -14,21 +14,22 @@
 
           <thead>
           <tr>             
-            
-              <td>Name</td>
-              <td>Price</td>
-              <td>ShortDescription</td>
-              <td>ImageThumbnailUrl</td>
+            <th>Image</th>
 
+              <th>Name</th>
+              <th>ShortDescription</th>
+              <th>Price</th>            
+              
           </tr>
           </thead>
           <tbody>
             <tr *ngFor="let pie of pies">
+              <td><img src="{{pie.imageThumbnailUrl}}" width="100px" height="75px" alt="Description"/></td>
             
-              <td> {{ pie.Name}}</td>
-              <td>{{ pie.Price | currency}}</td>
-              <td>{{ pie.ShortDescription }}</td>
-              <td>{{ pie.price | currency }}</td>
+              <td> {{ pie.name}}</td>
+              <td>{{ pie.shortDescription }}</td>            
+              <td>{{ pie.price | currency}}</td>
+
           </tr>
           </tbody>
       </table>
