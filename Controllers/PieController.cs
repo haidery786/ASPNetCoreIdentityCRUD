@@ -38,6 +38,16 @@ namespace my_new_app.Controllers
        
         }
 
+         public Pie GetPieDetail(int id)
+         {
+             var pie = new Pie();
+             
+             pie = _pieRepository.GetPieById(id);
+                              
+             return pie;
+             
+         }
+
       
         // GET: /<controller>/
         // public IActionResult Index()
@@ -55,15 +65,6 @@ namespace my_new_app.Controllers
         //     return View(homeViewModel);
         // }
 
-        // public IActionResult Details(int id)
-        // {
-        //     var pie = _pieRepository.GetPieById(id);
-        //     if (pie == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     else
-        //         return View(pie);
-        // }
+        
     }
 }

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PieComponentComponent } from './pie-component/pie-component.component';
+import { PieDetailComponent } from './pie-detail/pie-detail.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PieComponentComponent } from './pie-component/pie-component.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    PieComponentComponent
+    PieComponentComponent,
+    PieDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -29,6 +31,7 @@ import { PieComponentComponent } from './pie-component/pie-component.component';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'pie-data', component: PieComponentComponent },
+      { path: 'detail/:id', component: PieDetailComponent },
     ])
   ],
   providers: [],

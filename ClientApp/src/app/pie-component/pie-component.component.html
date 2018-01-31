@@ -24,7 +24,12 @@
           </thead>
           <tbody>
             <tr *ngFor="let pie of pies">
-              <td><img src="{{pie.imageThumbnailUrl}}" width="100px" height="75px" alt="Description"/></td>
+                
+              <td>
+              <a routerLink="/detail/{{pie.id}}">
+                <img src="{{pie.imageThumbnailUrl}}"   width="100px" height="75px" alt="Description"/>
+              </a>
+              </td>
             
               <td> {{ pie.name}}</td>
               <td>{{ pie.shortDescription }}</td>            
