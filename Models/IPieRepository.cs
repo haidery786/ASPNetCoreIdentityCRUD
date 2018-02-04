@@ -10,5 +10,11 @@ namespace my_new_app.Models
         IEnumerable<Pie> GetAllPies();
 
         Pie GetPieById(int pieid);
+
+        Pie Add(Pie item);
+        
+        bool Remove(int id);
+        bool Update(Pie item);
+
     }
 }

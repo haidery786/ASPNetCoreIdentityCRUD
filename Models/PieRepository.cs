@@ -22,5 +22,40 @@ namespace my_new_app.Models
         {
             return _appDbContext.Pies.FirstOrDefault(p => p.Id == pieid);
         }
+
+        public Pie Add(Pie Pie)
+        {
+            _appDbContext.Pies.Add(Pie);
+            _appDbContext.SaveChanges();
+            return Pie;
+        }
+
+
+          public bool Remove(int id)
+        {
+            Pie Pie = _appDbContext.Pies.Find(id);
+
+            if (Pie == null)
+                return false;
+
+            _appDbContext.Pies.Remove(Pie);
+            _appDbContext.SaveChanges();
+            return true;
+        }
+
+        public bool Update(Pie newPie)
+        {
+            Pie oldPie =_appDbContext.Pies.Find(newPie.Id);
+            if (newPie == null)
+                return false;
+
+            oldPie.Name = newPie.Name;
+            oldPie.ShortDescription=newPie.ShortDescription;
+            oldPie.Price =newPie.Price;
+            
+            _appDbContext.SaveChanges();
+            return true;
+        }
+
     }
 }

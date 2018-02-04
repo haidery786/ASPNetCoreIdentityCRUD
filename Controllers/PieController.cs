@@ -50,34 +50,74 @@ namespace my_new_app.Controllers
         }
 
         
-        //    [HttpGet("PieData/{id}", Name = "PieDetial")]
-        //  public Pie GetPieDetail(int id)
-        //  {
-        //      var pie =  new Pie() { Name = "Apple Pie", Price = 12.95M, ShortDescription = "Our famous apple pies!", LongDescription = "Icing carrot cake jelly-o cheesecake. Sweet roll marzipan marshmallow toffee brownie brownie candy tootsie roll. Chocolate cake gingerbread tootsie roll oat cake pie chocolate bar cookie dragée brownie. Lollipop cotton candy cake bear claw oat cake. Dragée candy canes dessert tart. Marzipan dragée gummies lollipop jujubes chocolate bar candy canes. Icing gingerbread chupa chups cotton candy cookie sweet icing bonbon gummies. Gummies lollipop brownie biscuit danish chocolate cake. Danish powder cookie macaroon chocolate donut tart. Carrot cake dragée croissant lemon drops liquorice lemon drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. Brownie cupcake dragée gummies.", ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg", IsPieOfTheWeek = true, ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepiesmall.jpg" };
-             
-        //      //pie = _pieRepository.GetPieById(id);
-                              
-        //      return pie;
-             
-        //  }
+         // POST: api/pies
+        //TODO Add New pie 
+        public IActionResult PostPieData(Pie pie)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-      
-        // GET: /<controller>/
-        // public IActionResult Index()
-        // {
-        //     ViewBag.Title = "Pie Overview";
+            Pie newPie = _pieRepository.Add(pie);
 
-        //     var pies = _pieRepository.GetAllPies().OrderBy(p => p.Name);
+            if (newPie == null)
+            {
+                return BadRequest("New pie is Null");
+            }
+            else
+            {
+                
+                return new ObjectResult(pie);
+       
+            }           
+        }
 
-        //     HomeViewModel homeViewModel = new HomeViewModel()
-        //     {
-        //         Title = "Welcome to Imran's Pie Shop",
-        //         Pies = pies.ToList()
-        //     };
+       // PUT: api/pies/5
+        public IActionResult PutPieData(Pie pie)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //     return View(homeViewModel);
-        // }
+            if (!_pieRepository.Update(pie))
+            {
+                return BadRequest();
+            }
+            else
+            {
+               var upd_pie = _pieRepository.GetPieById(pie.Id);
+                if (upd_pie == null)
+                {
+                    return NotFound();
+                }
+                return new ObjectResult(upd_pie);
 
+            }
+          
+        }
+
+      ///  DELETE: api/piess/5
+       
+        public IActionResult Deletepie(int id)
+        {
+            var pie = _pieRepository.GetPieById(id);;
+            if (pie == null)
+            {
+                return NotFound();
+            }
+
+            if (_pieRepository.Remove(id))
+            {
+                return Ok(pie);
+            }
+            else
+            {
+                return BadRequest("pie is not Deleted");
+            }
+           
+        }
         
     }
 }
