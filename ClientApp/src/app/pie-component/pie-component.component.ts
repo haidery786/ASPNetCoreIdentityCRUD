@@ -1,38 +1,31 @@
-import { Component, Inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {PieService} from '../dataServices/pie.service';
+import{ Pie } from '../Models/pie';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-pie-data',
   templateUrl: './pie-component.component.html',
   styleUrls: ['./pie-component.component.css']
 })
-export class PieComponentComponent {
+export class PieComponentComponent implements OnInit{
 
-  public pies:  Pie[];
+  public pies: Pie[];
 
-   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-   http.get<Pie[]>(baseUrl + 'api/PieData/GetAllPies').subscribe(result => {
-     this.pies = result;
-     console.log(baseUrl + 'api/PieData/GetAllPies');
-   }, error => console.error(error));
- }
+  constructor(private pieService : PieService){}
 
+  ngOnInit() {
+    this.getPies();
+  }
+  getPies(): void {
+    this.pieService.getPies()
+        .subscribe(pies => this.pies = pies);
+  }
 }
 
 
 
-interface Pie {
-  Id: number;
-  Name : string; 
-  ShortDescription: string; 
-  LongDescription: string; 
-  Price: number; 
-  ImageUrl: string; 
-  ImageThumbnailUrl: string; 
-  IsPieOfTheWeek: boolean; 
-  IsInStock: boolean;
- 
-}
 
 
 

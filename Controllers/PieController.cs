@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace my_new_app.Controllers
 {
-     [Route("api/[controller]")]
-    public class PieDataController : Controller
+      [Route("api/[controller]")]
+  public class PieDataController : Controller
     {
         private readonly IPieRepository _pieRepository;
 
@@ -20,8 +20,8 @@ namespace my_new_app.Controllers
             _pieRepository = pieRepository;
         }
 
-        [HttpGet("[action]")]
-        public IEnumerable<Pie> GetAllPies()
+        [HttpGet]
+        public IEnumerable<Pie> GetAll()
         {
            var pies = _pieRepository.GetAllPies().OrderBy(p => p.Name);
 
@@ -37,16 +37,29 @@ namespace my_new_app.Controllers
            return pies;
        
         }
-           [HttpGet("PieData/{id}", Name = "PieDetial")]
-         public Pie GetPieDetail(int id)
-         {
-             var pie =  new Pie() { Name = "Apple Pie", Price = 12.95M, ShortDescription = "Our famous apple pies!", LongDescription = "Icing carrot cake jelly-o cheesecake. Sweet roll marzipan marshmallow toffee brownie brownie candy tootsie roll. Chocolate cake gingerbread tootsie roll oat cake pie chocolate bar cookie dragée brownie. Lollipop cotton candy cake bear claw oat cake. Dragée candy canes dessert tart. Marzipan dragée gummies lollipop jujubes chocolate bar candy canes. Icing gingerbread chupa chups cotton candy cookie sweet icing bonbon gummies. Gummies lollipop brownie biscuit danish chocolate cake. Danish powder cookie macaroon chocolate donut tart. Carrot cake dragée croissant lemon drops liquorice lemon drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. Brownie cupcake dragée gummies.", ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg", IsPieOfTheWeek = true, ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepiesmall.jpg" };
+
+        [HttpGet("{id}", Name = "GetTodo")]
+        public IActionResult GetById(int id)
+        {
+            var pie = _pieRepository.GetPieById(id);
+            if (pie == null)
+            {
+                return NotFound();
+            }
+            return new ObjectResult(pie);
+        }
+
+        
+        //    [HttpGet("PieData/{id}", Name = "PieDetial")]
+        //  public Pie GetPieDetail(int id)
+        //  {
+        //      var pie =  new Pie() { Name = "Apple Pie", Price = 12.95M, ShortDescription = "Our famous apple pies!", LongDescription = "Icing carrot cake jelly-o cheesecake. Sweet roll marzipan marshmallow toffee brownie brownie candy tootsie roll. Chocolate cake gingerbread tootsie roll oat cake pie chocolate bar cookie dragée brownie. Lollipop cotton candy cake bear claw oat cake. Dragée candy canes dessert tart. Marzipan dragée gummies lollipop jujubes chocolate bar candy canes. Icing gingerbread chupa chups cotton candy cookie sweet icing bonbon gummies. Gummies lollipop brownie biscuit danish chocolate cake. Danish powder cookie macaroon chocolate donut tart. Carrot cake dragée croissant lemon drops liquorice lemon drops cookie lollipop toffee. Carrot cake carrot cake liquorice sugar plum topping bonbon pie muffin jujubes. Jelly pastry wafer tart caramels bear claw. Tiramisu tart pie cake danish lemon drops. Brownie cupcake dragée gummies.", ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepie.jpg", IsPieOfTheWeek = true, ImageThumbnailUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/applepiesmall.jpg" };
              
-             //pie = _pieRepository.GetPieById(id);
+        //      //pie = _pieRepository.GetPieById(id);
                               
-             return pie;
+        //      return pie;
              
-         }
+        //  }
 
       
         // GET: /<controller>/

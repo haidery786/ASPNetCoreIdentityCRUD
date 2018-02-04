@@ -1,6 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule }      from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
@@ -11,6 +11,8 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PieComponentComponent } from './pie-component/pie-component.component';
 import { PieDetailComponent } from './pie-detail/pie-detail.component';
+import {PieService} from './dataServices/pie.service';
+import { PieEditComponent } from './pie-edit/pie-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { PieDetailComponent } from './pie-detail/pie-detail.component';
     CounterComponent,
     FetchDataComponent,
     PieComponentComponent,
-    PieDetailComponent
+    PieDetailComponent,
+    PieEditComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,9 +35,11 @@ import { PieDetailComponent } from './pie-detail/pie-detail.component';
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'pie-data', component: PieComponentComponent },
       { path: 'detail/:id', component: PieDetailComponent },
+      { path: 'edit/:id', component: PieEditComponent },
+   
     ])
   ],
-  providers: [],
+  providers: [PieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

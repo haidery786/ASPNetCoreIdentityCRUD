@@ -1,14 +1,43 @@
 
-<h2>pie.Name</h2>
+<h1>Pie Data</h1>
 
-<div class="thumbnail">
-    <img alt="pie.Name" src="pie.ImageUrl">
-    <div class="caption-full">
-        <h3 class="pull-right">pie.Price</h3>
-        <h3>
-            <a href="#">pie.Name</a>
-        </h3>
-        <h4>pie.ShortDescription</h4>
-        <p>pie.LongDescription</p>
-    </div>
-</div> 
+<p *ngIf="!pie"><em>Loading...</em></p>
+
+<button routerLink="/pie-data" type="button" class="btn btn-primary">Go Back</button>
+
+<br><br>
+<div class="panel panel-primary">
+  <div class="panel-heading"
+       style="font-size:large">Pies Data
+  </div>
+
+  <div class="panel-body">
+    <table class='table' *ngIf="pie">
+
+          <thead>
+          <tr>             
+            <th>Image</th>
+
+              <th>Name</th>
+              <th>Long Description</th>
+              <th>Price</th>            
+              
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+                
+              <td>
+                <img src="{{pie.imageThumbnailUrl}}"   width="100px" height="75px" alt="Description"/>
+              </td>
+            
+              <td> {{ pie.name}}</td>
+              <td>{{ pie.longDescription }}</td>            
+              <td>{{ pie.price | currency}}</td>
+
+          </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
