@@ -1,16 +1,20 @@
-<!-- <p *ngIf="!pie"><em>Loading...</em></p> -->
+<h1>Pie Edit</h1>
+
+<p *ngIf="!pie"><em>Loading...</em></p>
+
+<button routerLink="/pie-data" type="button" class="btn btn-primary">Go Back</button>
 
 <div  class="container">
 
   <h1></h1>
-  <form #heroForm="ngForm">
-    <div [hidden]="heroForm.submitted">
+  <form #pieForm="ngForm" *ngIf="pie">
+    <div [hidden]="pieForm.submitted">
 
       <div class="form-group">
         <label for="name">Name</label>
         <input id="name" name="name" class="form-control"
-               required minlength="4" 
-               [(ngModel)]="pie1.name" #name="ngModel" >
+               required minlength="5" 
+               [(ngModel)]="pie.name" #name="ngModel"  >
 
         <div *ngIf="name.invalid && (name.dirty || name.touched)"
              class="alert alert-danger">
@@ -19,39 +23,53 @@
             Name is required.
           </div>
           <div *ngIf="name.errors.minlength">
-            Name must be at least 4 characters long.
+            Name must be at least 5 characters long.
           </div>
          
         </div>
       </div>
 
       <div class="form-group">
-        <label for="alterEgo">Alter Ego</label>
-        <input id="alterEgo" class="form-control"
-               name="alterEgo" [(ngModel)]="hero.alterEgo" >
+        <label for="shortDescription">Short Description</label>
+        <input id="shortDescription" class="form-control"
+               name="shortDescription" [(ngModel)]="pie.shortDescription" >
       </div>
 
       <div class="form-group">
-        <label for="power">Hero Power</label>
-        <select id="power" name="power" class="form-control"
-                required [(ngModel)]="hero.power" #power="ngModel" >
-          <option *ngFor="let p of powers" [value]="p">{{p}}</option>
-        </select>
+        <label for="price">Pie Price</label>
 
-        <div *ngIf="power.errors && power.touched" class="alert alert-danger">
-          <div *ngIf="power.errors.required">Power is required.</div>
+        
+        <input type="number" id="price" name="price" class="form-control"
+               required 
+               [(ngModel)]="pie.price" #price="ngModel" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" >
+             <div *ngIf="price.invalid">
+              Is price a valid decimal value.
+            </div>
+        
+
+        <div *ngIf="price.invalid && (price.dirty || price.touched)"
+             class="alert alert-danger">
+
+          <div *ngIf="price.errors.required">
+            Price is required.
+          </div>
+          <div *ngIf="price.errors.minlength">
+            Price must be at least 5 characters long.
+          </div>
+         
         </div>
       </div>
 
+
       <button type="submit" class="btn btn-default"
-              [disabled]="heroForm.invalid">Submit</button>
+              [disabled]="pieForm.invalid">Submit</button>
       <button type="button" class="btn btn-default"
-              (click)="heroForm.resetForm({})">Reset</button>
+              (click)="pieForm.resetForm({})">Reset</button>
     </div>
 
-    <div class="submitted-message" *ngIf="heroForm.submitted">
-      <p>You've submitted your hero, {{ heroForm.value.name }}!</p>
-      <button (click)="heroForm.resetForm({})">Add new hero</button>
+    <div class="submitted-message" *ngIf="pieForm.submitted">
+      <p>You've submitted your pie, {{ pieForm.value.name }}!</p>
+      <button (click)="pieForm.resetForm({})">Add new pie</button>
     </div>
   </form>
 
