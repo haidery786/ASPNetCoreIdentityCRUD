@@ -9,6 +9,9 @@ import { of } from 'rxjs/observable/of';
 export class PieService{
 
   private piesUrl = 'api/PieData';  // URL to web api
+
+ 
+
   constructor(private http:HttpClient) { }
 
    ngOnInit() {
@@ -28,6 +31,22 @@ export class PieService{
     const url = `${this.piesUrl}/${id}`;
     return this.http.get<Pie>(url).pipe(
       catchError(this.handleError<Pie>(`getPie id=${id}`))
+    );
+  }
+
+  /** PUT: update pie on the server */
+
+  updatePie (pie: Pie): Observable<any> {
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    };
+    const id = 1;
+    const url = `${this.piesUrl}/${id}`;   
+  //  console.log(url) ;
+  debugger;
+    return this.http.put(url, pie, httpOptions).pipe(
+      catchError(this.handleError<any>('updateHero'))
     );
   }
 

@@ -7,12 +7,15 @@
 <div  class="container">
 
   <h1></h1>
-  <form #pieForm="ngForm" *ngIf="pie">
-    <div [hidden]="pieForm.submitted">
+
+  <div class="row">
+  
+  <form #pieForm="ngForm" *ngIf="pie" class="col-md-6">
+    <div>
 
       <div class="form-group">
         <label for="name">Name</label>
-        <input id="name" name="name" class="form-control"
+        <input id="name" name="name" class="form-control input-md"
                required minlength="5" 
                [(ngModel)]="pie.name" #name="ngModel"  >
 
@@ -29,9 +32,9 @@
         </div>
       </div>
 
-      <div class="form-group">
+      <div class="form-group ">
         <label for="shortDescription">Short Description</label>
-        <input id="shortDescription" class="form-control"
+        <input id="shortDescription" class="form-control input-md"
                name="shortDescription" [(ngModel)]="pie.shortDescription" >
       </div>
 
@@ -39,7 +42,7 @@
         <label for="price">Pie Price</label>
 
         
-        <input type="number" id="price" name="price" class="form-control"
+        <input type="number" id="price" name="price" class="form-control input-md"
                required 
                [(ngModel)]="pie.price" #price="ngModel" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" >
              <div *ngIf="price.invalid">
@@ -61,17 +64,17 @@
       </div>
 
 
-      <button type="submit" class="btn btn-default"
-              [disabled]="pieForm.invalid">Submit</button>
+      <button type="submit" class="btn btn-success" (click) = "save(pie)"
+              [disabled]="pieForm.invalid">Update</button>
       <button type="button" class="btn btn-default"
               (click)="pieForm.resetForm({})">Reset</button>
     </div>
 
-    <div class="submitted-message" *ngIf="pieForm.submitted">
-      <p>You've submitted your pie, {{ pieForm.value.name }}!</p>
-      <button (click)="pieForm.resetForm({})">Add new pie</button>
-    </div>
+   
   </form>
+
+
+</div>
 
 </div>
 

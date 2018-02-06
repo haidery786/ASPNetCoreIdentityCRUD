@@ -13,6 +13,8 @@ import {PieService} from '../dataServices/pie.service';
 export class PieEditComponent {
 
   public pie: Pie;
+
+  
          
   constructor(http: HttpClient ,private activatedRoute: ActivatedRoute, private pieService: PieService) { }
 
@@ -24,6 +26,17 @@ export class PieEditComponent {
     });
 
   }
+
+  save(): void {
+   // console.log(this.pie);
+    this.pieService.updatePie(this.pie).subscribe(result => {
+      this.pie = result;
+     // console.log(this.pie);
+    }, error => console.error(error));
+  //  this.heroService.updateHero(this.hero)
+    //  .subscribe(() => this.goBack());
+  }
+
 
   getPie(id:number) : void {
     this.pieService.getPie(id).subscribe(result => {

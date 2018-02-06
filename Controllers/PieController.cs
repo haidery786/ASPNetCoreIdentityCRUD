@@ -74,20 +74,23 @@ namespace my_new_app.Controllers
         }
 
        // PUT: api/pies/5
-        public IActionResult PutPieData(Pie pie)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+       // [HttpPost]       
+      //  public IActionResult PutPieData(Pie pie)
+        [HttpPut("{id}")]
+        public IActionResult Update(int id,  Pie item)
 
-            if (!_pieRepository.Update(pie))
+        {
+            if (item == null || item.Id != id)
+            {
+                return BadRequest();
+            }
+            if (!_pieRepository.Update(item))
             {
                 return BadRequest();
             }
             else
             {
-               var upd_pie = _pieRepository.GetPieById(pie.Id);
+               var upd_pie = _pieRepository.GetPieById(item.Id);
                 if (upd_pie == null)
                 {
                     return NotFound();
