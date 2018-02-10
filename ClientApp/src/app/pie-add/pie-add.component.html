@@ -1,18 +1,19 @@
-<h1>Pie Edit</h1>
 
-<p *ngIf="!pie"><em>Loading...</em></p>
+   <h1>Add Pie</h1>
 
 <button routerLink="/pie-data" type="button" class="btn btn-primary">Go Back</button>
 
 <div  class="container">
 
-  <div *ngIf="updated" class="alert alert-success">
-      <strong>Success!</strong> 
+  <h1></h1>
+
+  <div *ngIf="added" class="alert alert-success">
+      <strong>Successfully added a new pie data!</strong> 
     </div>
 
   <div class="row">
     
-  <form #pieForm="ngForm" *ngIf="pie" class="col-md-6">
+  <form #pieForm="ngForm"  class="col-md-6">
     <div>
 
       <div class="form-group">
@@ -41,33 +42,13 @@
       </div>
 
       <div class="form-group">
-          <label for="imageUrl">Image Url</label>
-          <select class="form-control" id="imageUrl"
-                  required
-                  [(ngModel)]="pie.imageUrl" name="imageUrl"
-                  #imageUrl="ngModel">
-      
-           <option selected="selected" [value]="pie.imageUrl" >{{pie.imageUrl}}</option>
-      
-            <option *ngFor="let img of imageUrls" [value]="img">{{img}}</option>
-          </select>
-          <div [hidden]="imageUrl.valid || imageUrl.pristine" class="alert alert-danger">
-              Image Url is required
-          </div>
-        </div>
-
-
-      <div class="form-group">
-        <label for="price">Pie Price</label>
-
-        
+        <label for="price">Pie Price</label>        
         <input type="number" id="price" name="price" class="form-control input-md"
                required 
                [(ngModel)]="pie.price" #price="ngModel" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" >
              <div *ngIf="price.invalid">
               Is price a valid decimal value.
-            </div>
-        
+            </div>        
 
         <div *ngIf="price.invalid && (price.dirty || price.touched)"
              class="alert alert-danger">
@@ -81,10 +62,34 @@
          
         </div>
       </div>
+      
 
-      <button type="submit" class="btn btn-success" (click) = "save(pie)"
-              [disabled]="pieForm.invalid">Update</button>
-     </div>
+      <div class="form-group">
+          <label for="imageUrl">Image Url</label>
+          <select class="form-control" id="imageUrl"
+                  required
+                  [(ngModel)]="pie.imageUrl" name="imageUrl"
+                  #imageUrl="ngModel">
+            <option *ngFor="let img of imageUrls" [value]="img">{{img}}</option>
+          </select>
+          <div [hidden]="imageUrl.valid || imageUrl.pristine" class="alert alert-danger">
+              Image Url is required
+          </div>
+        </div>
+
+        <div class="form-group">
+            
+            <label for="isInStock">Is Pie in Stock
+            <input type="checkbox" id="isInStock" name="isInStock" class="form-control input-md"
+                   [(ngModel)]="pie.isInStock" #isInStock="ngModel"  >
+                  </label>     
+        </div>
+
+      <button type="submit" class="btn btn-success" (click) = "add(pie)"
+              [disabled]="pieForm.invalid">Add</button>
+      <button type="button" class="btn btn-default"
+              (click)="pieForm.resetForm({})">Reset</button>
+    </div>
 
    
   </form>

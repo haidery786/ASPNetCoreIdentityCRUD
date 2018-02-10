@@ -22,6 +22,12 @@ export class PieComponentComponent implements OnInit{
     this.pieService.getPies()
         .subscribe(pies => this.pies = pies);
   }
+
+  delete(pie: Pie): void {
+    this.pies = this.pies.filter(p => p !== pie);
+    this.pieService.deletePie(pie).subscribe();
+  }
+
 }
 
 

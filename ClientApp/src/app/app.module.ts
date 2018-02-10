@@ -13,6 +13,7 @@ import { PieComponentComponent } from './pie-component/pie-component.component';
 import { PieDetailComponent } from './pie-detail/pie-detail.component';
 import {PieService} from './dataServices/pie.service';
 import { PieEditComponent } from './pie-edit/pie-edit.component';
+import { PieAddComponent } from './pie-add/pie-add.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PieEditComponent } from './pie-edit/pie-edit.component';
     PieComponentComponent,
     PieDetailComponent,
     PieEditComponent,
+    PieAddComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,6 +38,7 @@ import { PieEditComponent } from './pie-edit/pie-edit.component';
       { path: 'pie-data', component: PieComponentComponent },
       { path: 'detail/:id', component: PieDetailComponent },
       { path: 'edit/:id', component: PieEditComponent },
+      { path: 'add', component: PieAddComponent },
    
     ])
   ],

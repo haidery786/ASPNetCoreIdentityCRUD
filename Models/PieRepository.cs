@@ -45,14 +45,17 @@ namespace my_new_app.Models
 
         public bool Update(Pie newPie)
         {
-            Pie oldPie =_appDbContext.Pies.Find(newPie.Id);
+            Pie existPie =_appDbContext.Pies.Find(newPie.Id);
             if (newPie == null)
                 return false;
 
-            oldPie.Name = newPie.Name;
-            oldPie.ShortDescription=newPie.ShortDescription;
-            oldPie.Price =newPie.Price;
-            
+            existPie.Name = newPie.Name;
+            existPie.ShortDescription=newPie.ShortDescription;
+            existPie.Price = newPie.Price;
+            existPie.ImageUrl=newPie.ImageUrl;
+            existPie.ImageThumbnailUrl = newPie.ImageUrl;
+
+              
             _appDbContext.SaveChanges();
             return true;
         }

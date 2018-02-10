@@ -5,12 +5,17 @@ import { Observable } from 'rxjs/Observable';
 import { catchError, map, tap  } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'my-auth-token'
+  })
+};
+
 @Injectable()
 export class PieService{
 
   private piesUrl = 'api/PieData';  // URL to web api
-
- 
 
   constructor(private http:HttpClient) { }
 
@@ -36,19 +41,34 @@ export class PieService{
 
   /** PUT: update pie on the server */
 
-  updatePie (pie: Pie): Observable<any> {
+  updatePie (pie: Pie): Observable<Pie> {
+    httpOptions.headers =
+      httpOptions.headers.set('Content-Type', 'application/json');
 
-    const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-    };
-    const id = 1;
-    const url = `${this.piesUrl}/${id}`;   
-  //  console.log(url) ;
+    //  debugger;
+    return this.http.put<Pie>(this.piesUrl+'/'+pie.id, pie, httpOptions)
+      .pipe(
+        catchError(this.handleError('updatePie', pie))
+      );
+  }
+
+  /** DELETE: delete the pie from the server */
+deletePie (pie: Pie | number): Observable<Pie> {
+  const id = typeof pie === 'number' ? pie : pie.id;
+  const url = `${this.piesUrl}/${id}`;
   debugger;
-    return this.http.put(url, pie, httpOptions).pipe(
-      catchError(this.handleError<any>('updateHero'))
+  return this.http.delete<Pie>(url, httpOptions).pipe(
+    catchError(this.handleError<Pie>('deletePie'))
+  );
+}
+
+  /** POST: add a new pie to the server */
+  addPie(pie: Pie): Observable<Pie> {
+    return this.http.post<Pie>(this.piesUrl, pie, httpOptions).pipe(
+      catchError(this.handleError<Pie>('addPie'))
     );
   }
+
 
   private handleError<T> (operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

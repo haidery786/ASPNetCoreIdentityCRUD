@@ -38,7 +38,7 @@ namespace my_new_app.Controllers
        
         }
 
-        [HttpGet("{id}", Name = "GetTodo")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var pie = _pieRepository.GetPieById(id);
@@ -52,7 +52,8 @@ namespace my_new_app.Controllers
         
          // POST: api/pies
         //TODO Add New pie 
-        public IActionResult PostPieData(Pie pie)
+        [HttpPost]
+        public IActionResult Post([FromBody]Pie pie)
         {
             if (!ModelState.IsValid)
             {
@@ -66,21 +67,16 @@ namespace my_new_app.Controllers
                 return BadRequest("New pie is Null");
             }
             else
-            {
-                
-                return new ObjectResult(pie);
-       
+            {                
+                return new ObjectResult(pie);       
             }           
         }
 
        // PUT: api/pies/5
-       // [HttpPost]       
-      //  public IActionResult PutPieData(Pie pie)
         [HttpPut("{id}")]
-        public IActionResult Update(int id,  Pie item)
-
+        public IActionResult Put(int id, [FromBody]Pie item)
         {
-            if (item == null || item.Id != id)
+            if (item == null )
             {
                 return BadRequest();
             }
@@ -102,8 +98,8 @@ namespace my_new_app.Controllers
         }
 
       ///  DELETE: api/piess/5
-       
-        public IActionResult Deletepie(int id)
+        [HttpDelete("{id}")]        
+        public IActionResult Delete(int id)
         {
             var pie = _pieRepository.GetPieById(id);;
             if (pie == null)

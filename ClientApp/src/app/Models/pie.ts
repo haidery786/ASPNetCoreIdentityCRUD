@@ -1,15 +1,15 @@
 
-export class Pie {
+export interface Pie {
   
-    Id: number;
-    Name : string; 
-    ShortDescription: string; 
-    LongDescription: string; 
-    Price: number; 
-    ImageUrl: string; 
-    ImageThumbnailUrl: string; 
-    IsPieOfTheWeek: boolean; 
-    IsInStock: boolean;
+    id: number;
+    name : string; 
+    shortDescription: string; 
+    longDescription: string; 
+    price: number; 
+    imageUrl: string; 
+    imageThumbnailUrl: string; 
+    isPieOfTheWeek: boolean; 
+    isInStock: boolean;
    
   }
   
