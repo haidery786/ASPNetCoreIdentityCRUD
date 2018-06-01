@@ -5,6 +5,7 @@ import {Router, ActivatedRoute, Params} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { AuthenticationService } from '../shared/authentication.service';
+import{ LoginVm } from '../Models/loginVm';
 
 @Component({
   selector: 'app-login',
@@ -13,16 +14,17 @@ import { AuthenticationService } from '../shared/authentication.service';
 })
 export class LoginComponent implements OnInit {
 
-  username: string;
-  password: string;
+  
+  login = <LoginVm> {};
+
 
   constructor(private router: Router, private auhenticationService: AuthenticationService) { }
 
   ngOnInit() { }
 
-  loginUser() {
+  loginUser(login:LoginVm) {
     
-    this.auhenticationService.login(this.username, this.password)
+    this.auhenticationService.login(login.username, login.password)
       .subscribe(result => {
         if (result === true) {
           this.router.navigate(['home']);

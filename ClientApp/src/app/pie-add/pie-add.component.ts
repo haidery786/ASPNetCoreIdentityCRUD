@@ -38,8 +38,8 @@ export class PieAddComponent implements OnInit {
   }
 
   add(pie:Pie): void {   
-    debugger;
-    console.log(pie);
+    //debugger;
+    //console.log(pie);
     this.pieService.addPie(pie).subscribe(result => {
       this.added = true;
     }, error => console.error(error));
