@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BaseRequestOptions } from '@angular/http';
-
+import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { CounterComponent } from './counter/counter.component';
@@ -38,6 +38,7 @@ import { AuthenticationService } from './shared/authentication.service';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    HttpModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

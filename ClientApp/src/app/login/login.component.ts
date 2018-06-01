@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
+import { catchError, map, tap } from 'rxjs/operators';
+import {Router, ActivatedRoute, Params} from '@angular/router';
+
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { UserService } from '../shared/user.service';
 import { AuthenticationService } from '../shared/authentication.service';
 
@@ -18,6 +21,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() { }
 
   loginUser() {
+    
     this.auhenticationService.login(this.username, this.password)
       .subscribe(result => {
         if (result === true) {
