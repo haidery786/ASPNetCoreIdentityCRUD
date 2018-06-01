@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 namespace my_new_app
 {
@@ -26,11 +29,36 @@ namespace my_new_app
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options => 
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            // services.AddCors(o => o.AddPolicy("CORSPolicy", builder =>
+            // {
+            //     builder.AllowAnyOrigin()
+            //            .AllowAnyMethod()
+            //            .AllowAnyHeader();
+            // }));    
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddCookie()
+                    .AddJwtBearer(jwtBearerOptions =>
+                    {
+                        jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+                        {
+                            ValidateActor = false,
+                            ValidateAudience = false,
+                            ValidateLifetime = true,
+                            ValidateIssuerSigningKey = true,
+                            ValidIssuer = Configuration["Token:Issuer"],
+                            ValidAudience = Configuration["Token:Audience"],
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Token:Key"]))
+                        };
+                    });
+
+
 
             services.AddTransient<IPieRepository, PieRepository>();
             services.AddTransient<IFeedbackRepository, FeedbackRepository>();
@@ -62,7 +90,7 @@ namespace my_new_app
 
             app.UseStaticFiles();
 
-          //  app.UseAuthentication();
+            app.UseAuthentication();
 
             app.UseSpaStaticFiles();
 
