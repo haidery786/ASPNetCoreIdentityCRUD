@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using my_new_app.Data;
 
 namespace my_new_app
 {
@@ -23,7 +24,7 @@ namespace my_new_app
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<AppDbContext>();
+                    var context = services.GetRequiredService<ApplicationDbContext>();
                     DbInitializer.Seed(context);
                 }
                 catch (Exception)

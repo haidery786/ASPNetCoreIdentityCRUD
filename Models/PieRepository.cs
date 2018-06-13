@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using my_new_app.Data;
 
 namespace my_new_app.Models
 {
     public class PieRepository : IPieRepository
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly ApplicationDbContext _appDbContext;
 
-        public PieRepository(AppDbContext appDbContext)
+        public PieRepository(ApplicationDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

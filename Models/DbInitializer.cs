@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using my_new_app.Data;
 
 namespace my_new_app.Models
 {
     public static class DbInitializer
     {
-        public static void Seed(AppDbContext context)
+        public static void Seed(ApplicationDbContext context)
         {
             if (!context.Pies.Any())
             {
