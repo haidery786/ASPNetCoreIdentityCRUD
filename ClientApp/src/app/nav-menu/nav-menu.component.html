@@ -7,7 +7,7 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class='navbar-brand' [routerLink]='["/"]'>My First SPA</a>
+            <a class='navbar-brand' [routerLink]='["/"]'>ASP.Net Core SPA</a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
@@ -17,29 +17,38 @@
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
                 </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/counter"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-education'></span> Counter
-                    </a>
-                </li>
-                <li [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-th-list'></span> Fetch data
-                    </a>
-                </li>
+             
 
-                <li [routerLinkActive]='["link-active"]'>
+                <li *ngIf="status" [routerLinkActive]='["link-active"]'>
                     <a [routerLink]='["/pie-data"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-th-list'></span> Pies data
+                        <span class='glyphicon glyphicon-th-list'></span> Products
                     </a>
                 </li>
 
-                <li [routerLinkActive]='["link-active"]'>
+                <li *ngIf="status" class="nav-item">
+                    
+                        <a href=# (click)='logout()'>
+                            <span class='glyphicon glyphicon-th-list'></span> Logout
+                        </a>
+                 </li>
+
+                <li *ngIf="!status" [routerLinkActive]='["link-active"]'>
                     <a [routerLink]='["/login"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-th-list'></span> Login
                     </a>
                 </li>
 
+                <li *ngIf="!status" [routerLinkActive]='["link-active"]'>
+                        <a [routerLink]='["/register"]' (click)='collapse()'>
+                            <span class='glyphicon glyphicon-th-list'></span> Register
+                        </a>
+                </li>
+                <li *ngIf="!status" [routerLinkActive]='["link-active"]'>
+                    <a [routerLink]='["/facebook-logn"]' (click)='collapse()'>
+                        <span class='glyphicon glyphicon-th-list'></span> Login with Facebook
+                    </a>
+                </li>
+    
             </ul>
         </div>
     </div>

@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using my_new_app.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace my_new_app.Controllers
 {
-      [Route("api/[controller]")]
+  [Authorize(Policy = "ApiUser")]
+  [Route("api/[controller]/[action]")]
+ 
   public class PieDataController : Controller
     {
         private readonly IPieRepository _pieRepository;

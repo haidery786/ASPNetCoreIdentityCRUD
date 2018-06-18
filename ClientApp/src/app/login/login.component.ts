@@ -3,8 +3,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared/user.service';
-import { AuthenticationService } from '../shared/authentication.service';
+import { UserService } from '../shared/services/user.service';
 import{ LoginVm } from '../Models/loginVm';
 
 @Component({
@@ -18,13 +17,13 @@ export class LoginComponent implements OnInit {
   login = <LoginVm> {};
 
 
-  constructor(private router: Router, private auhenticationService: AuthenticationService) { }
+  constructor(private router: Router, private userService: UserService) { }
 
   ngOnInit() { }
 
   loginUser(login:LoginVm) {
     
-    this.auhenticationService.login(login.username, login.password)
+    this.userService.login(login.username, login.password)
       .subscribe(result => {
         if (result === true) {
           this.router.navigate(['home']);

@@ -11,7 +11,7 @@ using System;
 namespace mynewapp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180613145057_initialcreate")]
+    [Migration("20180614084935_initialcreate")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
