@@ -25,6 +25,12 @@
                     </a>
                 </li>
 
+                <li *ngIf="status" [routerLinkActive]= '["link-active"]' >
+                        <a [routerLink]='["/mydetails"]' (click)='collapse()'>
+                            <span class='glyphicon glyphicon-th-list'></span> My Details
+                        </a>
+                </li>
+
                 <li *ngIf="status" class="nav-item">
                     
                         <a href=# (click)='logout()'>
@@ -44,7 +50,7 @@
                         </a>
                 </li>
                 <li *ngIf="!status" [routerLinkActive]='["link-active"]'>
-                    <a [routerLink]='["/facebook-logn"]' (click)='collapse()'>
+                    <a [routerLink]='["/facebook-login"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-th-list'></span> Login with Facebook
                     </a>
                 </li>

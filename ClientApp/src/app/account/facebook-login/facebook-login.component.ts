@@ -53,7 +53,7 @@ export class FacebookLoginComponent {
         .subscribe(
         result => {
           if (result) {
-            this.router.navigate(['/dashboard/home']);
+            this.router.navigate(['/home']);
           }
         },
         error => {

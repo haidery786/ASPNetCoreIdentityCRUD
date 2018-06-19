@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import{ Pie } from '../Models/pie';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { catchError, map, tap  } from 'rxjs/operators';
+import { catchError  } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
 const httpOptions = {
@@ -25,9 +25,16 @@ export class PieService{
 
   /** GET pies from the server */
   getPies (): Observable<Pie[]> {
-    return this.http.get<Pie[]>(this.piesUrl)
+
+    let authToken = localStorage.getItem('auth_token');  
+   
+    httpOptions.headers =
+    httpOptions.headers.set('Authorization', `Bearer ${authToken}`);
+
+   // debugger;
+    return this.http.get<Pie[]>(this.piesUrl, httpOptions)
     .pipe(
-      catchError(this.handleError('getPies', []))
+      catchError(this.handleError('getPies',[]))
     );
   }
 
@@ -80,6 +87,5 @@ deletePie (pie: Pie | number): Observable<Pie> {
       return of(result as T);
     };
   }
-
 
 }

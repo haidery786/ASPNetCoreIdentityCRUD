@@ -1,0 +1,17 @@
+
+<div class="row">
+  <div class="col-md-6 col-sm-3">
+    <p>{{myDetails?.message}}</p>
+    <p><strong>Name:</strong> {{myDetails?.firstName}} {{myDetails?.lastName}}</p>
+    <p *ngIf="myDetails?.location"><strong>Location:</strong> {{myDetails?.location}}</p>
+    <p *ngIf="myDetails?.locale"><strong>Locale:</strong> {{myDetails?.locale}}</p>
+    <p *ngIf="myDetails?.gender"><strong>Gender:</strong> {{myDetails?.gender}}</p>
+    <p *ngIf="myDetails?.facebookId"><strong>Facebook Id:</strong> {{myDetails?.facebookId}}</p>
+    <div *ngIf="myDetails?.pictureUrl"><img src="{{myDetails?.pictureUrl}}" /></div>  
+  </div>
+</div>
+
+ 
+ 
+ 
+  
