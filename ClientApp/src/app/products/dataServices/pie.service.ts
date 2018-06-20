@@ -17,21 +17,23 @@ export class PieService{
 
   private piesUrl = 'api/PieData';  // URL to web api
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+
+      let authToken = localStorage.getItem('auth_token');  
+      if(authToken != null)
+      {
+        httpOptions.headers =
+        httpOptions.headers.set('Authorization', `Bearer ${authToken}`);
+      }
+   }
 
    ngOnInit() {
     this.getPies();
   }
 
   /** GET pies from the server */
-  getPies (): Observable<Pie[]> {
-
-    let authToken = localStorage.getItem('auth_token');  
-   
-    httpOptions.headers =
-    httpOptions.headers.set('Authorization', `Bearer ${authToken}`);
-
-   // debugger;
+  getPies (): Observable<Pie[]> {   
+    
     return this.http.get<Pie[]>(this.piesUrl, httpOptions)
     .pipe(
       catchError(this.handleError('getPies',[]))
@@ -40,8 +42,12 @@ export class PieService{
 
   /** GET pie by id. Will 404 if id not found */
   getPie(id: number): Observable<Pie> {
+
+    console.log(httpOptions.headers.get('Content-Type'));
+    console.log(httpOptions.headers.get('Authorization'));
+   
     const url = `${this.piesUrl}/${id}`;
-    return this.http.get<Pie>(url).pipe(
+    return this.http.get<Pie>(url , httpOptions).pipe(
       catchError(this.handleError<Pie>(`getPie id=${id}`))
     );
   }
@@ -49,9 +55,7 @@ export class PieService{
   /** PUT: update pie on the server */
 
   updatePie (pie: Pie): Observable<Pie> {
-    httpOptions.headers =
-      httpOptions.headers.set('Content-Type', 'application/json');
-
+   
     //  debugger;
     return this.http.put<Pie>(this.piesUrl+'/'+pie.id, pie, httpOptions)
       .pipe(
@@ -63,7 +67,7 @@ export class PieService{
 deletePie (pie: Pie | number): Observable<Pie> {
   const id = typeof pie === 'number' ? pie : pie.id;
   const url = `${this.piesUrl}/${id}`;
-  debugger;
+ 
   return this.http.delete<Pie>(url, httpOptions).pipe(
     catchError(this.handleError<Pie>('deletePie'))
   );
