@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace my_new_app.Controllers
 {
   [Authorize(Policy = "ApiUser")]
-  [Route("api/[controller]/[action]")]
+  [Route("api/[controller]")]
  
   public class PieDataController : Controller
     {

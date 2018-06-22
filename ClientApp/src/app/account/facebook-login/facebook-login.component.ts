@@ -18,7 +18,7 @@ export class FacebookLoginComponent {
   isRequesting: boolean; 
 
   launchFbLogin() {
-    this.authWindow = window.open('https://www.facebook.com/v2.11/dialog/oauth?&response_type=token&display=popup&client_id=1528751870549294&display=popup&redirect_uri=http://localhost:5000/facebook-auth.html&scope=email',null,'width=600,height=400');    
+    this.authWindow = window.open('https://www.facebook.com/v2.11/dialog/oauth?&response_type=token&display=popup&client_id=460522817739771&display=popup&redirect_uri=http://localhost:5000/facebook-auth.html&scope=email',null,'width=600,height=400');    
   }
 
   constructor(private userService: UserService, private router: Router) {
@@ -30,6 +30,8 @@ export class FacebookLoginComponent {
   } 
 
   handleMessage(event: Event) {
+
+    //debugger;
     const message = event as MessageEvent;
     // Only trust messages from the below origin.
     if (message.origin !== "http://localhost:5000") return;
@@ -53,7 +55,8 @@ export class FacebookLoginComponent {
         .subscribe(
         result => {
           if (result) {
-            this.router.navigate(['/dashboard/home']);
+            debugger;
+            this.router.navigate(['/home']);
           }
         },
         error => {

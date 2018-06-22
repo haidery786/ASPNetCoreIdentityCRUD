@@ -40,7 +40,7 @@ export class LoginFormComponent implements OnInit, OnDestroy {
 
   login({ value, valid }: { value: Credentials, valid: boolean }) {
 
-    debugger;
+   // debugger;
 
     this.submitted = true;
     this.isRequesting = true;

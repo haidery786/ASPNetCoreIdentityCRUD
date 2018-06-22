@@ -73,6 +73,8 @@ export class UserService extends BaseService {
   }
 
   facebookLogin(accessToken:string) {
+
+    debugger;
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     let body = JSON.stringify({ accessToken });  
