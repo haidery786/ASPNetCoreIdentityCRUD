@@ -60,6 +60,17 @@ IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\.angular-cli.json" (
 )
 echo =======  Building Angular App: Finished at %TIME% =======
 
+:: Copy Web.Config
+echo =======  Copy Web.Config: Starting at %TIME% ======= 
+echo "%DEPLOYMENT_SOURCE%\web.config"
+IF EXIST "%DEPLOYMENT_SOURCE%\web.config" (
+  pushd "%DEPLOYMENT_SOURCE%"
+  call :ExecuteCmd cp web.config dist\
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
+)
+echo =======  Copy Web.Config: Finished at %TIME% =======
+
 
 IF NOT DEFINED KUDU_SYNC_CMD (
   :: Install kudu sync
