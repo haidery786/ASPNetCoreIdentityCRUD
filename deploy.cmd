@@ -51,8 +51,8 @@ echo =======  Installing npm dev packages: Finished at %TIME% =======
 
 :: Building the Angular App
 echo =======  Building Angular App: Starting at %TIME% ======= 
-echo "%DEPLOYMENT_SOURCE%\ClientApp\.angular-cli.json"
-IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\.angular-cli.json" (
+echo "%DEPLOYMENT_SOURCE%\ClientApp\angular.json"
+IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\angular.json" (
   pushd "%DEPLOYMENT_SOURCE%\ClientApp"
   call :ExecuteCmd node_modules\.bin\ng build --progress false --prod
   IF !ERRORLEVEL! NEQ 0 goto error
