@@ -2,7 +2,7 @@
 
 :: ----------------------
 :: KUDU Deployment Script
-:: Version: 1.0.17
+:: Version: 1.0.15
 :: ----------------------
 
 :: Prerequisites
@@ -60,18 +60,6 @@ IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\angular.json" (
 )
 echo =======  Building Angular App: Finished at %TIME% =======
 
-REM :: Copy Web.Config
-REM echo =======  Copy Web.Config: Starting at %TIME% ======= 
-REM echo "%DEPLOYMENT_SOURCE%\web.config"
-REM IF EXIST "%DEPLOYMENT_SOURCE%\web.config" (
-REM   pushd "%DEPLOYMENT_SOURCE%"
-REM   call :ExecuteCmd cp web.config dist\
-REM   IF !ERRORLEVEL! NEQ 0 goto error
-REM   popd
-REM )
-REM echo =======  Copy Web.Config: Finished at %TIME% =======
-
-
 IF NOT DEFINED KUDU_SYNC_CMD (
   :: Install kudu sync
   echo Installing Kudu Sync
@@ -101,11 +89,11 @@ SET MSBUILD_PATH=%ProgramFiles(x86)%\MSBuild\14.0\Bin\MSBuild.exe
 echo Handling ASP.NET Core Web Application deployment.
 
 :: 1. Restore nuget packages
-call :ExecuteCmd dotnet restore "%DEPLOYMENT_SOURCE%\my-new-app.csproj"
+call :ExecuteCmd dotnet restore "my-new-app.csproj"
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 2. Build and publish
-call :ExecuteCmd dotnet publish "%DEPLOYMENT_SOURCE%\my-new-app.csproj" --output "%DEPLOYMENT_TEMP%" --configuration Release
+call :ExecuteCmd dotnet publish "my-new-app.csproj" --output "%DEPLOYMENT_TEMP%" --configuration Release
 IF !ERRORLEVEL! NEQ 0 goto error
 
 :: 3. KuduSync
