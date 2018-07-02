@@ -25,7 +25,9 @@
     "test:ci": "jest --runInBand",
     "test:coverage": "jest --coverage",
     "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json",
-    "analyze": "npm run build -- --stats-json && webpack-bundle-analyzer dist/ASPNetCoreIdentityCRUD/stats.json"
+    "analyze": "npm run build -- --stats-json && webpack-bundle-analyzer dist/ASPNetCoreIdentityCRUD/stats.json",
+    "postinstall": "npm run buuild"
+
   },
   "dependencies": {
     "@angular/animations": "6.0.2",
