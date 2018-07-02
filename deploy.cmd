@@ -63,7 +63,7 @@ IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\angular.json" (
 IF EXIST "%DEPLOYMENT_SOURCE%\web.config" (
   pushd "%DEPLOYMENT_SOURCE%"
  :: the next line is optional to fix 404 error see section #8
-  call :ExecuteCmd cp web.config \Clientapp\dist\
+  call :ExecuteCmd cp web.config dist\
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
