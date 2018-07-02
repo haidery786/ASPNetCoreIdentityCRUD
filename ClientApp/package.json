@@ -26,7 +26,7 @@
     "test:coverage": "jest --coverage",
     "compodoc": "./node_modules/.bin/compodoc -p tsconfig.json",
     "analyze": "npm run build -- --stats-json && webpack-bundle-analyzer dist/ASPNetCoreIdentityCRUD/stats.json",
-    "postinstall": "npm run buuild"
+    "postinstall": "npm run build"
 
   },
   "dependencies": {
