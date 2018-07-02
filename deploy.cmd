@@ -38,78 +38,37 @@ IF NOT DEFINED NEXT_MANIFEST_PATH (
   )
 )
 
-:: Deployment
-:: ----------
- 
-:Deployment
-echo Handling node.js deployment.
- 
-:: 1. Select node version
-call :SelectNodeVersion
- 
-:: 2. Install npm packages
-IF EXIST "%DEPLOYMENT_SOURCE%\package.json" (
-  pushd "%DEPLOYMENT_SOURCE%"
-  call :ExecuteCmd !NPM_CMD! install
+:: Installing NPM dependencies.
+echo =======  Installing npm  devDependancy packages: Starting at %TIME% ======= 
+echo "%DEPLOYMENT_SOURCE%\ClientApp\package.json"
+IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\package.json" (
+  pushd "%DEPLOYMENT_SOURCE%\ClientApp"
+  call npm install --save
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
- 
-:: 3. Angular Prod Build
-IF EXIST "%DEPLOYMENT_SOURCE%/angular.json" (
-echo Building App in %DEPLOYMENT_SOURCE%…
-pushd "%DEPLOYMENT_SOURCE%"
-call :ExecuteCmd !NPM_CMD! run build
-IF !ERRORLEVEL! NEQ 0 goto error
-popd
+echo =======  Installing npm dev packages: Finished at %TIME% =======
+
+:: Building the Angular App
+echo =======  Building Angular App: Starting at %TIME% ======= 
+echo "%DEPLOYMENT_SOURCE%\ClientApp\angular.json"
+IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\angular.json" (
+  pushd "%DEPLOYMENT_SOURCE%\ClientApp"
+  call :ExecuteCmd node_modules\.bin\ng build --progress false --prod
+  IF !ERRORLEVEL! NEQ 0 goto error
+  popd
 )
- 
+
 :: 4. Copy Web.config
 IF EXIST "%DEPLOYMENT_SOURCE%\web.config" (
   pushd "%DEPLOYMENT_SOURCE%"
  :: the next line is optional to fix 404 error see section #8
-  call :ExecuteCmd cp web.config dist\
+  call :ExecuteCmd cp web.config site\wwwroot\Clientapp\dist\
   IF !ERRORLEVEL! NEQ 0 goto error
   popd
 )
- 
-:: 5. KuduSync
-IF /I "%IN_PLACE_DEPLOYMENT%" NEQ "1" (
-  call :ExecuteCmd "%KUDU_SYNC_CMD%" -v 50 -f "%DEPLOYMENT_SOURCE%/dist" -t "%DEPLOYMENT_TARGET%" -n "%NEXT_MANIFEST_PATH%" -p "%PREVIOUS_MANIFEST_PATH%" -i ".git;.hg;.deployment;deploy.cmd"
-  IF !ERRORLEVEL! NEQ 0 goto error
-)
 
-REM :: Installing NPM dependencies.
-REM echo =======  Installing npm  devDependancy packages: Starting at %TIME% ======= 
-REM echo "%DEPLOYMENT_SOURCE%\ClientApp\package.json"
-REM IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\package.json" (
-REM   pushd "%DEPLOYMENT_SOURCE%\ClientApp"
-REM   call npm install --save
-REM   IF !ERRORLEVEL! NEQ 0 goto error
-REM   popd
-REM )
-REM echo =======  Installing npm dev packages: Finished at %TIME% =======
-
-REM :: Building the Angular App
-REM echo =======  Building Angular App: Starting at %TIME% ======= 
-REM echo "%DEPLOYMENT_SOURCE%\ClientApp\angular.json"
-REM IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\angular.json" (
-REM   pushd "%DEPLOYMENT_SOURCE%\ClientApp"
-REM   call :ExecuteCmd node_modules\.bin\ng build --progress false --prod
-REM   IF !ERRORLEVEL! NEQ 0 goto error
-REM   popd
-REM )
-
-REM :: 4. Copy Web.config
-REM IF EXIST "%DEPLOYMENT_SOURCE%\web.config" (
-REM   pushd "%DEPLOYMENT_SOURCE%"
-REM  :: the next line is optional to fix 404 error see section #8
-REM   call :ExecuteCmd cp web.config dist\
-REM   IF !ERRORLEVEL! NEQ 0 goto error
-REM   popd
-REM )
-
-REM echo =======  Building Angular App: Finished at %TIME% =======
+echo =======  Building Angular App: Finished at %TIME% =======
 
 IF NOT DEFINED KUDU_SYNC_CMD (
   :: Install kudu sync
