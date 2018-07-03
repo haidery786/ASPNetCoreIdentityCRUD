@@ -59,14 +59,14 @@ IF EXIST "%DEPLOYMENT_SOURCE%\ClientApp\angular.json" (
   popd
 )
 
-:: 4. Copy Web.config
-IF EXIST "%DEPLOYMENT_SOURCE%\web.config" (
-  pushd "%DEPLOYMENT_SOURCE%"
- :: the next line is optional to fix 404 error see section #8
-  call :ExecuteCmd cp web.config dist\
-  IF !ERRORLEVEL! NEQ 0 goto error
-  popd
-)
+REM :: 4. Copy Web.config
+REM IF EXIST "%DEPLOYMENT_SOURCE%\web.config" (
+REM   pushd "%DEPLOYMENT_SOURCE%"
+REM  :: the next line is optional to fix 404 error see section #8
+REM   call :ExecuteCmd cp web.config dist\
+REM   IF !ERRORLEVEL! NEQ 0 goto error
+REM   popd
+REM )
 
 echo =======  Building Angular App: Finished at %TIME% =======
 
