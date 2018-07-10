@@ -22,7 +22,9 @@ baseUrl: string = '';
 
 constructor(private http: HttpClient, private configService: ConfigService) {
    
-    this.baseUrl = configService.getApiURI();
+//  this.baseUrl = configService.getApiURI();
+  this.baseUrl = 'api';
+
 }
 
  getMyDetails(): Observable<MyDetails>{
